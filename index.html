@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>List Matches</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+
+    <link href="assets/css/dashboard.css?v=1675152428" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6.3.7/themes/light.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"
+        integrity="sha512-HTENHrkQ/P0NGDFd5nk6ibVtCkcM7jhr2c7GyvXp5O+4X6O5cQO9AhqFzM+MdeBivsX7Hoys2J7pp2wdgMpCvw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script src="assets/js/scripts.js?t=1675152428"></script>
+    <script src="assets/js/language.js.php?t=1675152428"></script>
+
+
+
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+
+
+
+    <script>
+        const socket = io.connect(window.location.host + ':8035');
+    </script>
+
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+</head>
+
+<body>
+    <header class="navbar sticky-top flex-md-nowrap shadow-sm py-2 header-style">
+        <a class="navbar-brand brand-style col-md-3 col-lg-2 me-0 px-4" href="index.php">K1solutions</a>
+
+        <button class="navbar-toggler position-absolute d-md-none collapsed text-white bg-white" type="button"
+            data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </header>
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column align-items-center">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php">
+                                <span data-feather="link" class="align-text-bottom"></span>
+                                Match
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="soccer-league.php">
+                                <span data-feather="link" class="align-text-bottom"></span>
+                                Soccer League
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="soccer-league-2.php">
+                                <span data-feather="link" class="align-text-bottom"></span>
+                                Soccer League 2
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="match-html.php">
+                                <span data-feather="link" class="align-text-bottom"></span>
+                                Match Html
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="list-matches.php">
+                                <span data-feather="link" class="align-text-bottom"></span>
+                                List Matches
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="list-matches-2.php">
+                                <span data-feather="link" class="align-text-bottom"></span>
+                                List Matches 2
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mb-4">
+
+
+                <div class="col-md-12">
+                    <img class="image-style" src="http://42.127.255.106/parser/assets/images/united-kingdom.png"
+                        onclick="changeSiteLanguage('en')">
+                    <img class="image-style ms-2" src="http://42.127.255.106/parser/assets/images/south-korea.png"
+                        onclick="changeSiteLanguage('ko')">
+                </div>
+
+
+
+                <div class="row pt-3 pb-2">
+                    <div class="col-md-3 mb-2">
+                        <h1 class="h2">List Matches</h1>
+                    </div>
+
+                    <div class="col-md-2 mb-2">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                eSports
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="list-matches.php?sport_id=1">Soccer</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="list-matches.php?sport_id=18">BasketBall</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="list-matches.php?sport_id=16">BaseBall</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="list-matches.php?sport_id=91">VolleyBall</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="list-matches.php?sport_id=17">Ice Hockey</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="list-matches.php?sport_id=151">eSports</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7 mb-2">
+                        <div class="row">
+                            <div class="col-md-4 mb-2 ">
+                                <input class="form-control" type="date" id="start_date" name="start_date" value="">
+                            </div>
+
+                            <div class="col-md-4 mb-2 ">
+                                <input class="form-control" type="date" id="end_date" name="end_date" value="">
+                            </div>
+
+                            <div class="col-md-4 mb-2 ">
+                                <button class="btn btn-primary" onclick="filterByDate()">Submit</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive border rounded">
+                    <table class="table table-sm align-middle table-bordered mb-0 table-hover text-center" id="match_list">
+                        <thead class="thead-light">
+                            <tr class="text-center align-middle">
+                                <th>Id</th>
+                                <th>Fixture id</th>
+                                <th>Fixture odds id</th>
+                                <th>Sport name</th>
+
+                                <th>Start date</th>
+                                <th>Country name</th>
+                                <th>League name</th>
+
+                                <th>Home team name</th>
+                                <th>Home score</th>
+
+                                <th>Away score</th>
+                                <th>Away team name</th>
+
+                                <th>Livetime</th>
+                                <th>Status</th>
+                                <th>Current Period</th>
+                                <th>Last updated</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider" id="all_matches">
+                            <tr data-last-updated-livetime="2023-01-30 23:21:04" id="match_id_23681" class="">
+                                <td>23681</td>
+                                <td>132115779</td>
+                                <td>62486126</td>
+                                <td>Esports</td>
+                                <td id="match_start_date_23681">2023-01-31 00:00:00</td>
+
+                                <td></td>
+                                <td>CS:GO - CCT North Europe</td>
+                                <td>9INE</td>
+
+
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=23681"
+                                    id="match_home_score_parent_23681"><span id="match_home_score_23681">0</span></td>
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=23681"
+                                    id="match_away_score_parent_23681"><span id="match_away_score_23681">0</span></td>
+
+
+                                <td>Illuminar Gaming</td>
+                                <td data-type="match_livetime"
+                                    data-poload-statscore="ajax/statscore-history.php?event_id=23681"
+                                    id="match_livetime_23681">00:00</td>
+                                <td id="match_status_23681" data-real-value="0">경기예정</td>
+
+                                <td id="match_current_period_23681" data-real-value=""></td>
+                                <td id="match_last_updated_23681">2023-01-30 23:21:04</td>
+
+                            </tr>
+
+                            <tr data-last-updated-livetime="2023-01-30 18:19:38" id="match_id_23692" class="">
+                                <td>23692</td>
+                                <td>132110047</td>
+                                <td>61972058</td>
+                                <td>Esports</td>
+                                <td id="match_start_date_23692">2023-01-31 01:00:00</td>
+
+                                <td></td>
+                                <td>CS:GO - ESEA Advanced</td>
+                                <td>EC Brugge</td>
+
+
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=23692"
+                                    id="match_home_score_parent_23692"><span id="match_home_score_23692"></span></td>
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=23692"
+                                    id="match_away_score_parent_23692"><span id="match_away_score_23692"></span></td>
+
+
+                                <td>INVSN Team</td>
+                                <td data-type="match_livetime"
+                                    data-poload-statscore="ajax/statscore-history.php?event_id=23692"
+                                    id="match_livetime_23692"></td>
+                                <td id="match_status_23692" data-real-value="0">경기예정</td>
+
+                                <td id="match_current_period_23692" data-real-value=""></td>
+                                <td id="match_last_updated_23692">2023-01-30 18:19:38</td>
+
+                            </tr>
+
+                            <tr data-last-updated-livetime="2023-01-31 01:17:27" id="match_id_23693" class="">
+                                <td>23693</td>
+                                <td>132116727</td>
+                                <td>62576788</td>
+                                <td>Esports</td>
+                                <td id="match_start_date_23693">2023-01-31 01:00:00</td>
+
+                                <td></td>
+                                <td>CS:GO - ESEA Advanced</td>
+                                <td>Pepsilon</td>
+
+
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=23693"
+                                    id="match_home_score_parent_23693"><span id="match_home_score_23693">0</span></td>
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=23693"
+                                    id="match_away_score_parent_23693"><span id="match_away_score_23693">0</span></td>
+
+
+                                <td>ex-eSuba</td>
+                                <td data-type="match_livetime"
+                                    data-poload-statscore="ajax/statscore-history.php?event_id=23693"
+                                    id="match_livetime_23693">00:00</td>
+                                <td id="match_status_23693" data-real-value="0">경기예정</td>
+
+                                <td id="match_current_period_23693" data-real-value=""></td>
+                                <td id="match_last_updated_23693">2023-01-31 01:17:27</td>
+
+                            </tr>
+
+                            <tr data-last-updated-livetime="2023-01-30 18:19:38" id="match_id_23695" class="">
+                                <td>23695</td>
+                                <td>132118378</td>
+                                <td>62730544</td>
+                                <td>Esports</td>
+                                <td id="match_start_date_23695">2023-01-31 01:00:00</td>
+
+                                <td></td>
+                                <td>VALORANT - VCL Spain</td>
+                                <td>Ramboot Club</td>
+
+
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=23695"
+                                    id="match_home_score_parent_23695"><span id="match_home_score_23695"></span></td>
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=23695"
+                                    id="match_away_score_parent_23695"><span id="match_away_score_23695"></span></td>
+
+
+                                <td>Movistar Riders</td>
+                                <td data-type="match_livetime"
+                                    data-poload-statscore="ajax/statscore-history.php?event_id=23695"
+                                    id="match_livetime_23695"></td>
+                                <td id="match_status_23695" data-real-value="0">경기예정</td>
+
+                                <td id="match_current_period_23695" data-real-value=""></td>
+                                <td id="match_last_updated_23695">2023-01-30 18:19:38</td>
+
+                            </tr>
+
+                            <tr data-last-updated-livetime="2023-01-25 20:24:49" id="match_id_17933" class="">
+                                <td>17933</td>
+                                <td>131855283</td>
+                                <td>36408625</td>
+                                <td>Esports</td>
+                                <td id="match_start_date_17933">2023-01-31 02:00:00</td>
+
+                                <td></td>
+                                <td>VALORANT - VCL EU North</td>
+                                <td>VAMONOS</td>
+
+
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=17933"
+                                    id="match_home_score_parent_17933"><span id="match_home_score_17933"></span></td>
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=17933"
+                                    id="match_away_score_parent_17933"><span id="match_away_score_17933"></span></td>
+
+
+                                <td>Apeks</td>
+                                <td data-type="match_livetime"
+                                    data-poload-statscore="ajax/statscore-history.php?event_id=17933"
+                                    id="match_livetime_17933"></td>
+                                <td id="match_status_17933" data-real-value="0">경기예정</td>
+
+                                <td id="match_current_period_17933" data-real-value=""></td>
+                                <td id="match_last_updated_17933">2023-01-25 20:24:49</td>
+
+                            </tr>
+
+                            <tr data-last-updated-livetime="2023-01-31 02:37:48" id="match_id_16169" class="">
+                                <td>16169</td>
+                                <td>131810735</td>
+                                <td>32548446</td>
+                                <td>Esports</td>
+                                <td id="match_start_date_16169">2023-01-31 02:00:00</td>
+
+                                <td></td>
+                                <td>LOL - LEC Winter</td>
+                                <td>Excel</td>
+
+
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=16169"
+                                    id="match_home_score_parent_16169"><span id="match_home_score_16169">0</span></td>
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=16169"
+                                    id="match_away_score_parent_16169"><span id="match_away_score_16169">1</span></td>
+
+
+                                <td>Astralis</td>
+                                <td data-type="match_livetime"
+                                    data-poload-statscore="ajax/statscore-history.php?event_id=16169"
+                                    id="match_livetime_16169">31:25</td>
+                                <td id="match_status_16169" data-real-value="1">경기중</td>
+
+                                <td id="match_current_period_16169" data-real-value=""></td>
+                                <td id="match_last_updated_16169">2023-01-31 02:37:48</td>
+
+                            </tr>
+
+                            <tr data-last-updated-livetime="2023-01-30 18:19:38" id="match_id_23696" class="">
+                                <td>23696</td>
+                                <td>132118376</td>
+                                <td>62730534</td>
+                                <td>Esports</td>
+                                <td id="match_start_date_23696">2023-01-31 02:00:00</td>
+
+                                <td></td>
+                                <td>VALORANT - VCL Spain</td>
+                                <td>Rebels Gaming</td>
+
+
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=23696"
+                                    id="match_home_score_parent_23696"><span id="match_home_score_23696"></span></td>
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=23696"
+                                    id="match_away_score_parent_23696"><span id="match_away_score_23696"></span></td>
+
+
+                                <td>AYM Esports</td>
+                                <td data-type="match_livetime"
+                                    data-poload-statscore="ajax/statscore-history.php?event_id=23696"
+                                    id="match_livetime_23696"></td>
+                                <td id="match_status_23696" data-real-value="0">경기예정</td>
+
+                                <td id="match_current_period_23696" data-real-value=""></td>
+                                <td id="match_last_updated_23696">2023-01-30 18:19:38</td>
+
+                            </tr>
+
+                            <tr data-last-updated-livetime="2023-01-30 18:19:38" id="match_id_23700" class="">
+                                <td>23700</td>
+                                <td>132118609</td>
+                                <td>62754777</td>
+                                <td>Esports</td>
+                                <td id="match_start_date_23700">2023-01-31 02:00:00</td>
+
+                                <td></td>
+                                <td>VALORANT - VCL France</td>
+                                <td>WYLDE</td>
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=23700"
+                                    id="match_home_score_parent_23700"><span id="match_home_score_23700"></span></td>
+                                <td data-poload-scoreinfo="ajax/score-info.php?event_id=23700"
+                                    id="match_away_score_parent_23700"><span id="match_away_score_23700"></span></td>
+
+
+                                <td>HEET</td>
+                                <td data-type="match_livetime"
+                                    data-poload-statscore="ajax/statscore-history.php?event_id=23700"
+                                    id="match_livetime_23700"></td>
+                                <td id="match_status_23700" data-real-value="0">경기예정</td>
+
+                                <td id="match_current_period_23700" data-real-value=""></td>
+                                <td id="match_last_updated_23700">2023-01-30 18:19:38</td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <script>
+                    var sportId = '151'
+                    var sportName = 'esports'
+                    var fullPageUrl = new URL(window.location.href)
+
+                    function filterByDate() {
+                        let startDate = document.getElementById("start_date").value
+                        let endDate = document.getElementById("end_date").value
+
+                        if (!startDate || !endDate) {
+                            return false
+                        }
+
+                        fullPageUrl.searchParams.delete('page');
+                        fullPageUrl.searchParams.set('start_date', startDate);
+                        fullPageUrl.searchParams.set('end_date', endDate);
+                        location.href = fullPageUrl
+                    }
+
+                    //Clean up update score background animated color
+                    setInterval(() => {
+                        document.querySelectorAll("[data-poload-scoreinfo]").forEach(elem => {
+                            if (elem.style.backgroundColor) {
+                                elem.style.backgroundColor = ''
+                            }
+                        })
+                    }, 2300);
+
+                    socket.on("match_info_changed", (data) => {
+                        let allChangedData = data.changes
+                        let changesKeys = Object.keys(allChangedData)
+
+                        changesKeys.forEach(key => {
+                            let htmlId = `match_${key}_${data.matchId}`
+                            let elem = $('#' + htmlId)
+                            let parentElem = document.getElementById(`match_id_${data.matchId}`)
+
+
+                            if (elem.length) {
+                                let oldDataValue = document.getElementById(htmlId).innerHTML
+
+
+                                if (String(oldDataValue) == String(allChangedData[key])) {
+                                    return false
+                                }
+
+                                if (parentElem && key === 'livetime') {
+                                    parentElem.dataset.lastUpdatedLivetime = allChangedData.last_updated
+                                }
+
+                                // Update datasets
+                                if (['status', 'current_period'].includes(key)) {
+                                    elem.attr('data-real-value', allChangedData[key]);
+                                }
+
+
+                                //Update text
+                                if (key === 'last_updated') {
+                                    allChangedData.last_updated = formatDate(new Date(allChangedData.last_updated))
+                                }
+
+                                if (key === 'status' && notEmptyAndNotNull(allChangedData.status)) {
+                                    allChangedData.status = getLangText(`${sportName}.status.${allChangedData.status}`)
+                                }
+
+                                if (key === 'current_period' && notEmptyAndNotNull(allChangedData.current_period)) {
+                                    allChangedData.current_period = getLangText(`${sportName}.period.${allChangedData.current_period}`)
+                                }
+
+
+                                elem.text(allChangedData[key])
+
+                                // If match finished
+                                let status = document.getElementById(`match_status_${data.matchId}`)
+                                let currentPeriod = document.getElementById(`match_current_period_${data.matchId}`)
+
+                                if (status.dataset.realValue == 2 && currentPeriod.dataset.realValue == 100) {
+                                    parentElem.classList.add('faded-table-row')
+                                }
+
+                                // Animate scores
+                                if (['home_score', 'away_score'].includes(key)) {
+                                    let scoreParent = `match_${key}_parent_${data.matchId}`
+                                    animateColor(scoreParent)
+                                }
+
+                            }
+                        });
+                    })
+
+                    socket.on("match_info_added", (data) => {
+                        let datesRange = []
+                        let matchId = `match_id_${data.id}`
+                        let matchElem = $('#' + matchId)
+
+                        let startDate = fullPageUrl.searchParams.get('start_date')
+                        let endDate = fullPageUrl.searchParams.get('end_date')
+
+                        // make sure match was not added already
+                        if (matchElem.length > 0) {
+                            return false
+                        }
+
+                        // Don't add other sport data
+                        if (data.sport_id != sportId) {
+                            return false
+                        }
+
+                        if (startDate && endDate) {
+                            datesRange = getDatesInRange(new Date(startDate), new Date(endDate))
+                        } else {
+                            datesRange = [new Date()] // No date so its today matches
+                        }
+
+
+                        // Check if can add match to this page    
+                        let startDateObj = new Date(data.start_date)
+                        startDateObj.setHours(0, 0, 0, 0) // remove time
+
+                        let startDateRange = datesRange[0]
+                        startDateRange.setHours(0, 0, 0, 0) // remove time
+
+                        let endDateRange = datesRange[datesRange.length - 1]
+                        endDateRange.setHours(0, 0, 0, 0) // remove time
+
+                        if (!(startDateObj >= startDateRange && startDateObj <= endDateRange)) {
+                            return false
+                        }
+
+
+                        // Clean all values
+                        Object.keys(data).forEach(key => {
+                            data[key] = cleanValue(data[key])
+                        });
+
+                        let rowClasses = ''
+                        let statscoreAjaxLoader = ` data-poload-statscore="ajax/statscore-history.php?event_id=${data.id}"`;
+                        let scoreinfoAjaxLoader = ` data-poload-scoreinfo="ajax/score-info.php?event_id=${data.id}"`;
+
+
+                        // If match finished
+                        if (data.status == 2 && data.current_period == 100) {
+                            rowClasses += 'faded-table-row ';
+                        }
+
+
+                        let period = data.current_period
+                        let status = data.status
+
+                        if (notEmptyAndNotNull(data.current_period)) {
+                            period = getLangText(`${sportName}.period.${period}`)
+                        }
+
+                        if (notEmptyAndNotNull(data.status)) {
+                            status = getLangText(`${sportName}.status.${status}`)
+                        }
+
+
+                        let html = `
+    <td>${data.id}</td>
+    <td>${data.fixture_id}</td>
+    <td>${data.fixture_odds_id}</td>
+    <td>${data.sport_name}</td>
+    <td>${formatDate(new Date(data.start_date))}</td>
+    
+    <td>${data.country_name}</td>
+    <td>${data.league_name}</td>
+    <td>${data.home_team_name}</td>
+    
+    <td ${scoreinfoAjaxLoader} id="match_home_score_parent_${data.id}">`
+
+
+                        if (notEmptyAndNotNull(data.home_set)) {
+                            html += `(<span id="match_home_set_${data.id}">${data.home_set}</span>)`
+                        }
+
+                        html += `<span id="match_home_score_${data.id}">${data.home_score}</span></td>`
+
+
+                        html += `<td ${scoreinfoAjaxLoader} id="match_away_score_parent_${data.id}">`
+
+                        if (notEmptyAndNotNull(data.away_set)) {
+                            html += `(<span id="match_away_set_${data.id}">${data.away_set}</span>) `
+                        }
+
+                        html += `<span id="match_away_score_${data.id}">${data.away_score}</span></td>
+    
+    <td>${data.away_team_name}</td>
+    
+    <td data-type="match_livetime" id="match_livetime_${data.id}"  ${statscoreAjaxLoader}>${data.livetime}</td>
+    <td id="match_status_${data.id}" data-real-value="${data.status}">${status}</td>
+    
+    <td id="match_current_period_${data.id}"  data-real-value="${data.current_period}">${period}</td>
+    <td id="match_last_updated_${data.id}">${formatDate(new Date(data.last_updated))}</td>
+    `
+
+                        // Get a reference to the table
+                        let tableRef = document.getElementById('all_matches');
+
+                        // Insert a row at the end of the table
+                        let newRow = tableRef.insertRow(-1);
+                        newRow.id = matchId
+                        newRow.className = rowClasses
+
+                        newRow.dataset.lastUpdatedLivetime = data.last_updated
+                        newRow.innerHTML = html
+
+                        bindAjaxPopoverLoader(`#match_livetime_${data.id}`, 'statscore')
+                        bindAjaxPopoverLoader(`#match_home_score_parent_${data.id}`, 'scoreinfo')
+                        bindAjaxPopoverLoader(`#match_away_score_parent_${data.id}`, 'scoreinfo')
+
+                        sortTable()
+                    })
+
+                    function sortTable() {
+                        var table, rows, switching, i, x, y, shouldSwitch;
+                        table = document.getElementById("match_list");
+                        switching = true;
+                        /*Make a loop that will continue until
+                        no switching has been done:*/
+                        while (switching) {
+                            //start by saying: no switching is done:
+                            switching = false;
+                            rows = table.rows;
+                            /*Loop through all table rows (except the
+                            first, which contains table headers):*/
+                            for (i = 1; i < (rows.length - 1); i++) {
+                                //start by saying there should be no switching:
+                                shouldSwitch = false;
+                                /*Get the two elements you want to compare,
+                                one from current row and one from the next:*/
+                                x = rows[i].getElementsByTagName("TD")[4];
+                                y = rows[i + 1].getElementsByTagName("TD")[4];
+                                //check if the two rows should switch place:
+
+                                if (new Date(x.innerHTML) > new Date(y.innerHTML)) {
+                                    //if so, mark as a switch and break the loop:
+                                    shouldSwitch = true;
+                                    break;
+                                }
+                            }
+                            if (shouldSwitch) {
+                                /*If a switch has been marked, make the switch
+                                and mark that a switch has been done:*/
+                                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                switching = true;
+                            }
+                        }
+                    }
+
+                    bindAjaxPopoverLoader('*[data-poload-statscore]', 'statscore')
+                    bindAjaxPopoverLoader('*[data-poload-scoreinfo]', 'scoreinfo')
+
+                    // Ajax popover loader
+                    function bindAjaxPopoverLoader(selector, poloadDataType) {
+                        tippy(selector, {
+                            theme: 'light',
+                            content: 'Loading...',
+                            allowHTML: true,
+                            interactive: true,
+
+                            onCreate(instance) {
+                                // Setup our own custom state properties
+                                instance._isFetching = false;
+                                instance._html = null;
+                                instance._error = null;
+                            },
+                            onShow(instance) {
+                                if (instance._isFetching || instance._html || instance._error) {
+                                    return;
+                                }
+
+                                instance._isFetching = true;
+                                var e = $('#' + instance.reference.id);
+
+                                $.get({
+                                    url: e.data('poload-' + poloadDataType),
+                                    cache: false
+                                }).done(function (html) {
+                                    instance.setContent(html);
+                                }).fail(() => {
+                                    instance._error = error;
+                                    instance.setContent('Request failed.');
+                                })
+                                    .always(() => {
+                                        instance._isFetching = false;
+                                    });
+                            },
+                            onHidden(instance) {
+                                instance.setContent('Loading...');
+                                // Unset these properties so new network requests can be initiated
+                                instance._html = null;
+                                instance._error = null;
+                            }
+                        });
+                    }
+                </script>
+
+                <div class="modal" style="background: none !important;" id="loading" data-bs-backdrop="static"
+                    data-bs-keyboard="false" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered" style="background: none !important;">
+                        <div class="modal-content" style="background: none !important; border: none;">
+                            <div class="modal-body" style="background: none !important; text-align: center;">
+                                <div class="spinner-border text-light" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+        crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
